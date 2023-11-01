@@ -1,16 +1,15 @@
 // app/api/route.ts
 import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
-import { ChatMessage } from '@azure/openai/rest';
-import { NextApiRequest } from 'next';
 import { v4 as uuid } from 'uuid';
 import { systemValue } from '@/utils/constants';
+import { NextRequest } from 'next/server';
 
 // export const runtime = 'nodejs';
 // export const runtime = 'edge' // 'nodejs' is the default
 // This is required to enable streaming
 // export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: NextRequest) {
   const url = new URL(req.url || '');
   const messagesParam = url.searchParams.get('messages');
   console.log('searchParams', messagesParam);
