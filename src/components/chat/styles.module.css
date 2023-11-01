@@ -2,6 +2,8 @@
     overflow-y: auto;
     height: 500px;
     width: 500px;
+    max-width: 100vmin;
+    max-height: 100vmin;
     border: 1px solid silver;
     border-radius: 5px;
     padding: 10px;
@@ -26,7 +28,9 @@
 }
 .input {
     width: 500px;
+    max-width: 100vw;
     height: 100px;
     color: black;
     padding: 5px;
+    border-radius: 5px;
 }

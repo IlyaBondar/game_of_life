@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Message, MessageRole } from "@/types/types";
-import styles from './GPTChat.module.css';
+import styles from './styles.module.css';
 import clx from 'classnames';
 
 export default function MessageView({ id, user, role, content }: Message) {

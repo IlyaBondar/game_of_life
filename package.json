@@ -1,5 +1,6 @@
 {
-  "name": "nextjs",
+  "name": "game-of-life",
+  "description": "web chat gpt interface with additional visualization capabilities",
   "version": "0.1.0",
   "private": true,
   "scripts": {

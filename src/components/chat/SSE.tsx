@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, MouseEvent } from "react";
-import Button from "./Button";
+import Button from "../shared/Button";
 import uniqueId from "lodash-es/uniqueId";
 import { Message, MessageRole } from "@/types/types";
 import MessageView from "./MessageView";

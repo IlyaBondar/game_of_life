@@ -1,4 +1,4 @@
-import Matrix from "@/components/Matrix";
+import Matrix from "@/components/game/Matrix";
 
 export default async function Game() {
     return (

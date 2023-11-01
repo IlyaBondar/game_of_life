@@ -2,15 +2,15 @@
 
 import {
     ChangeEvent,
-    MouseEvent,
+    KeyboardEvent,
     useCallback,
     useEffect,
     useRef,
     useState
 } from 'react';
 import SSE from './SSE';
-import styles from './GPTChat.module.css';
-import Button from './Button';
+import styles from './styles.module.css';
+import Button from '../shared/Button';
 import { Message, MessageRole } from '@/types/types';
 import MessageView from './MessageView';
 import { v4 as uuid } from 'uuid';
@@ -19,7 +19,8 @@ import clx from 'classnames';
 import { generateUserKey } from '@/utils/utils';
 
 export default function GPTChat() {
-    const key = generateUserKey('user');
+    const user = 'Ilya'; // TODO: Social login
+    const key = generateUserKey(user);
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const [initialized, setInitialized] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -45,21 +46,31 @@ export default function GPTChat() {
         }
     },[output, initialized, key]);
 
-    const onClick = useCallback((e: MouseEvent) => {
+    const onClick = useCallback((e: Event) => {
         e.preventDefault();
+        const content = inputValue.trim();
+        if(!content) return;
         const newOutput = [
             ...output,
             {
                 id: uuid(),
-                user: 'Ilya',
+                user,
                 role: MessageRole.User,
-                content: inputValue
+                content
             }
         ];
         setOutput(newOutput);
         setInputValue('');
         inputRef.current?.focus();
     }, [output, inputValue]);
+
+    const onKeyDown = useCallback((e: KeyboardEvent) => {
+        if(e.key == 'Enter' && e.ctrlKey) {
+            e.preventDefault();
+            // @ts-ignore
+            onClick(e);
+        }
+    },[onClick]);
 
     const onClear = useCallback((e: MouseEvent) => {
         e.preventDefault();
@@ -81,16 +92,17 @@ export default function GPTChat() {
                 <span ref={outputBottomRef}></span>
             </div>
             <textarea id="chat__input"
-                placeholder='Enter command for GPT chat'
+                placeholder='Enter command for GPT chat (Ctrl-Enter to send)'
                 value={inputValue}
                 onChange={onChange}
+                onKeyDown={onKeyDown}
                 className={clx(styles.input)}
                 rows={10}
                 autoFocus={true}
                 ref={inputRef}
             />
             <div className='flex my-3 gap-2'>
-                <Button id="chat__send" onClick={onClick} disabled={!inputValue}>Send</Button>
+                <Button id="chat__send" onClick={onClick} disabled={!inputValue.trim()}>Send</Button>
                 <Button id="chat__reset" onClick={onClear}>Clear History</Button>
             </div>
             <SSE/>

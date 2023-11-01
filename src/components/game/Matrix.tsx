@@ -4,7 +4,8 @@ import { useRef, useEffect, useCallback, useState, MouseEvent } from 'react';
 import useDrawMatrix from '@/hooks/useDrawMatrix';
 import fakeData from '@/utils/data/fakeData.json'
 import { Matrix, WorkerCommands, WorkerData } from '@/types/types';
-import Button from './Button';
+import Button from '../shared/Button';
+import './styles.css';
 
 export default function Matrix() {
     const initialData:Matrix = fakeData.starting_state as Matrix;
@@ -14,7 +15,7 @@ export default function Matrix() {
     const workerRef = useRef<Worker>()
 
     useEffect(() => {
-        workerRef.current = new Worker(new URL('../workers/gameOfLifeWorker.ts', import.meta.url))
+        workerRef.current = new Worker(new URL('@/workers/gameOfLifeWorker.ts', import.meta.url))
         workerRef.current.onmessage = (event: MessageEvent<WorkerData>) => {
             const { data, status } = event.data;
             setData(data);

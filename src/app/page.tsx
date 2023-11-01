@@ -1,4 +1,4 @@
-import GPTChat from "@/components/GPTchat";
+import GPTChat from "@/components/chat/GPTchat";
 
 export default function Home() {
   return (
