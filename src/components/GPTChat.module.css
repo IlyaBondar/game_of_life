@@ -1,0 +1,32 @@
+.output {
+    overflow-y: auto;
+    height: 500px;
+    width: 500px;
+    border: 1px solid silver;
+    border-radius: 5px;
+    padding: 10px;
+}
+.message {
+    border: 1px solid silver;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.message--user {
+    margin-left: 20px;
+}
+.message--bot {
+    margin-right: 20px;
+}
+.message--system {
+    font-style: italic;
+}
+.message__user {
+    font-weight: bold;
+}
+.input {
+    width: 500px;
+    height: 100px;
+    color: black;
+    padding: 5px;
+}

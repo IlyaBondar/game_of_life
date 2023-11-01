@@ -1,0 +1,1 @@
+export const generateUserKey = (userName?:string) => btoa(userName ?? 'anonymous');
