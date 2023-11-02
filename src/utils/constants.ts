@@ -10,5 +10,8 @@ Don't use natural language.`;
 export const systemValue:Message = {
     id: 'system',
     role: MessageRole.System,
-    content: prompt
+    content: prompt,
+    answered: true
 };
+
+export const BOT_DISPLAY_NAME = 'GPT';

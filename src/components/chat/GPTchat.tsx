@@ -17,6 +17,7 @@ import { v4 as uuid } from 'uuid';
 import { systemValue } from '@/utils/constants';
 import clx from 'classnames';
 import { generateUserKey } from '@/utils/utils';
+import GPTAnswer from './GPTAnswer';
 
 export default function GPTChat() {
     const user = 'Ilya'; // TODO: Social login
@@ -86,7 +87,10 @@ export default function GPTChat() {
             <label htmlFor='chat__input'>GPT:</label>
             <div id='chat__output' className={styles.output}>
                 {output.map((message)=>(
-                    <MessageView key={message.id} {...message}/>
+                    <>
+                        <MessageView key={message.id} {...message}/>
+                        {!message.answered && <GPTAnswer key={`${message.id}_answer`} {...message} /> }
+                    </>
                 ))}
                 { !initialized && <span>Loading...</span> }
                 <span ref={outputBottomRef}></span>
@@ -98,7 +102,7 @@ export default function GPTChat() {
                 onKeyDown={onKeyDown}
                 className={clx(styles.input)}
                 rows={10}
-                autoFocus={true}
+                autoFocus
                 ref={inputRef}
             />
             <div className='flex my-3 gap-2'>

@@ -5,6 +5,7 @@ import clx from 'classnames';
 
 export default function MessageView({ id, user, role, content }: Message) {
     const lines = content.split('\n');
+
     return (
         <section className={clx(styles.message, {
             [styles["message--user"]]: role === MessageRole.User,
@@ -12,7 +13,7 @@ export default function MessageView({ id, user, role, content }: Message) {
             [styles["message--system"]]: role === MessageRole.System
         })}>
             <div className={styles.message__user}>{user ?? role}:</div>
-            <div className={styles.content}>
+            <div className={clx(styles.content, 'break-words')}>
                 {lines.map((line, index) => (
                     <Fragment key={`${id}-${index}`}>
                         {line}
