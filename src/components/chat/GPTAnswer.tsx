@@ -26,7 +26,7 @@ export default function GPTAnswer({ id }: Props) {
 
             eventSource = new EventSource(`/api/gpt?messages=${JSON.stringify(messages)}`);
             eventSource.addEventListener("message", (e) => {
-                const value = atob(e.data)
+                const value = decodeURIComponent(e.data)
                 responseRef.current = `${responseRef.current}${value}`;
                 dispatch(updateMessage({ id, content: responseRef.current }));
             });

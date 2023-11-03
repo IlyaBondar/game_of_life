@@ -39,7 +39,14 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        return new Response(canvas.toDataURL("image/png"));
+        return new Response(canvas.toDataURL("image/png"), {
+            status: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            },
+        });
     } catch(e) {
         console.error(e);
         return new Response(`Error: ${e}`, {

@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
           for (const choice of event.choices) {
             const delta = choice.delta?.content;
             if (delta !== undefined) {
-                  writer.write(`data:${btoa(delta || '')}\nid:${uuid()}\n\n`);
+                  writer.write(`data:${encodeURIComponent(delta || '')}\nid:${uuid()}\n\n`);
             }
           }
         }
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
     } catch (error) {
       const errorMessage = 'An error occurred during OpenAI request';
       console.error(errorMessage, error);
-      writer.write(`data:${btoa(errorMessage)}\nid:${uuid()}\n\n`);
+      writer.write(`data:${encodeURIComponent(errorMessage)}\nid:${uuid()}\n\n`);
       writer.write(`event:error\ndata:${JSON.stringify(error)}\nid:${uuid()}\n\n`);
       writer.close();
     }
