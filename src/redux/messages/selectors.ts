@@ -12,3 +12,9 @@ export const getMessageBefore = (id:string, messages: Message[]) => {
     const index = messages.findIndex(mes=>mes.id===id);
     return messages.slice(0, index > 0 ? index : 1);
 };
+
+export const convertToGTP = (messages: Message[]) => messages.map(({
+    role, content
+}) => ({
+    role, content
+}));

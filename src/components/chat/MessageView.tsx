@@ -6,6 +6,8 @@ import { Fragment } from "react";
 import styles from './styles.module.scss';
 import GPTAnswer from "./GPTAnswer";
 import { parseInitialState } from "@/utils/parsers";
+import GenerateImage from "./GenerateImage";
+import Image from "next/image";
 
 type ContentProps = {
     content: string,
@@ -36,9 +38,8 @@ export default function MessageView({ id }: MessageProps) {
     if(!message)
         return (<div>Message not found</div>);
 
-    const { user, role, content, notAnswered, image } = message;
+    const { user, role, content, notAnswered, startParse, image } = message;
     const showPlaceholder = notAnswered && !content;
-    const result = !notAnswered && parseInitialState(content);
 
     return (
         <section className={clx(styles.message, styles[`message--${role}`])}>
@@ -48,6 +49,14 @@ export default function MessageView({ id }: MessageProps) {
                 <ContentView content={content} id={id} />
             </div>
             {notAnswered && <GPTAnswer id={id} />}
+            {startParse && <GenerateImage id={id} content={content}/>}
+            {image?.startsWith('data') && <Image
+                src={image}
+                alt="image of matrix"
+                width={300}
+                height={300}
+                className='border rounded'
+                />}
         </section>
     );
 }

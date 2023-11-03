@@ -22,7 +22,7 @@ export default function MatrixImage({ matrix, width = 300, height = 300 }:Props)
         })
           .then((res) => res.text())
           .then(img => setImage(img))
-          .catch(e => console.log(e));
+          .catch(e => console.error(e));
     },[height, matrix, width])
 
     return (image.startsWith('data') && <Image

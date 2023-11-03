@@ -8,9 +8,18 @@ export enum WorkerCommands {
     Stop = 'stop'
 }
 
-export type WorkerData = {
+export type GameWorkerData = {
     data: Matrix,
     status: WorkerCommands
+};
+
+export type ImageWorkerData = {
+    content: string
+};
+
+export type ImageWorkerResponse = {
+    image: string;
+    parsed: boolean;
 };
 
 export enum MessageRole {
@@ -25,6 +34,7 @@ export type Message = {
     role: MessageRole;
     content: string;
     notAnswered?: boolean;
+    startParse?: boolean;
     questionId?: string;
     image?: string;
 }

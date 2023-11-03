@@ -31,7 +31,7 @@ Don't use natural language.
 - [x] Chat UI
 - [x] History in LocalStorage
 - [x] SSE with GPT
-- [ ] Integration with GPT
+- [x] Integration with GPT
 - [x] Game of Life logic
 - [x] WebWorker with Game of Life logic
 - [ ] Generation of picture

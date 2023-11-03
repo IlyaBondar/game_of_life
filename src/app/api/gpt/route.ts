@@ -38,7 +38,6 @@ export async function GET(req: NextRequest) {
       for await (const event of events) {
           for (const choice of event.choices) {
             const delta = choice.delta?.content;
-            console.log('stream message: ', delta);
             if (delta !== undefined) {
                   writer.write(`data:${btoa(delta || '')}\nid:${uuid()}\n\n`);
             }

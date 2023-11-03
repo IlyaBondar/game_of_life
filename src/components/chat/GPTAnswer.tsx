@@ -1,6 +1,6 @@
 import { useUser } from "@/hooks/useUser";
 import { updateMessage } from "@/redux/messages/messageSlice";
-import { getMessageBefore } from "@/redux/messages/selectors";
+import { convertToGTP, getMessageBefore } from "@/redux/messages/selectors";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import messageStorage from "@/utils/storage";
 import { useEffect, useRef, useState } from 'react';
@@ -22,7 +22,7 @@ export default function GPTAnswer({ id }: Props) {
         // in dev mode effect executed twice and to avoid two request to AI API
         const timeout = setTimeout(() => {
             const allMessages = messageStorage.getAllData(user);
-            const messages = getMessageBefore(id, allMessages);
+            const messages = convertToGTP(getMessageBefore(id, allMessages));
 
             eventSource = new EventSource(`/api/gpt?messages=${JSON.stringify(messages)}`);
             eventSource.addEventListener("message", (e) => {
@@ -31,7 +31,7 @@ export default function GPTAnswer({ id }: Props) {
                 dispatch(updateMessage({ id, content: responseRef.current }));
             });
             eventSource.addEventListener("end", (e) => {
-                dispatch(updateMessage({ id, notAnswered: false })); //TODO: upload image
+                dispatch(updateMessage({ id, notAnswered: false, startParse: true }));
                 eventSource.close();
             });
             eventSource.addEventListener("error", (e:MessageEvent) => {

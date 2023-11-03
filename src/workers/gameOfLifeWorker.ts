@@ -1,10 +1,10 @@
-import { Matrix, WorkerCommands, WorkerData } from "@/types/types";
+import { Matrix, WorkerCommands, GameWorkerData } from "@/types/types";
 import gameOfLifeIteration from "@/utils/gameOfLife";
 import isEqual from "lodash-es/isEqual";
 
 let intervalId: NodeJS.Timeout;
 let matrix: Matrix;
-addEventListener('message', (event: MessageEvent<WorkerData>) => {
+addEventListener('message', (event: MessageEvent<GameWorkerData>) => {
     clearInterval(intervalId);
     const { status, data } = event.data;
     if(status === WorkerCommands.Start) {
