@@ -14,11 +14,13 @@ export type GameWorkerData = {
 };
 
 export type ImageWorkerData = {
-    content: string
+    content: string;
+    width?: number;
+    height?: number;
 };
 
 export type ImageWorkerResponse = {
-    finalState: Matrix;
+    image?: string;
     parsed: boolean;
     success: boolean;
 };
