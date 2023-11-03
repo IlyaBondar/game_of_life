@@ -20,8 +20,8 @@ export default function MatrixImage({ matrix, width = 300, height = 300 }:Props)
                 matrix, width, height
             }),
         })
-          .then((res) => res.text())
-          .then(img => setImage(img))
+          .then((res) => res.json())
+          .then(({ image }) => setImage(image))
           .catch(e => console.error(e));
     },[height, matrix, width])
 

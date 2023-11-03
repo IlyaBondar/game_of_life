@@ -18,7 +18,7 @@ export type ImageWorkerData = {
 };
 
 export type ImageWorkerResponse = {
-    image: string;
+    finalState: Matrix;
     parsed: boolean;
     success: boolean;
 };

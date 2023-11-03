@@ -8,14 +8,11 @@ const RECT_HEIGHT = 500;
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
     try {
-        //const { matrix, width = RECT_WIDTH, height = RECT_HEIGHT } = await req.json();
-        const matrix = JSON.parse(req.nextUrl.searchParams.get('matrix') || '');
-        const width = parseInt(req.nextUrl.searchParams.get('width') || '');
-        const height = parseInt(req.nextUrl.searchParams.get('height') || '');
+        const { matrix, width = RECT_WIDTH, height = RECT_HEIGHT } = await req.json();
         if(!matrix) {
-            return new Response('Error: please provide "matrix" parameter', {
+            return Response.json({ error: 'Error: please provide "matrix" parameter'}, {
                 status: 400,
                 statusText: 'Error: please provide "matrix" parameter'
             });
@@ -46,12 +43,6 @@ export async function GET(req: NextRequest) {
 
         return Response.json({ image: canvas.toDataURL("image/png") }, {
             status: 200,
-            // headers: {
-            //     'Access-Control-Allow-Origin': '*',
-            //     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            //     'Access-Control-Allow-Headers': '*',
-            //     'Content-type': 'application/json',
-            // },
         });
     } catch(e) {
         console.error(e);
