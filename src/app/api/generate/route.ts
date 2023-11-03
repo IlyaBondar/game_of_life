@@ -1,5 +1,5 @@
 import { Matrix } from "@/types/types";
-import { createCanvas } from "canvas";
+const { createCanvas } = require('canvas');
 import { isArray } from "lodash-es";
 import { NextRequest, NextResponse } from "next/server";
 
