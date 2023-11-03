@@ -3,14 +3,8 @@ import { createCanvas } from "canvas";
 import { isArray } from "lodash-es";
 import { NextRequest } from "next/server";
 
-const RECT_WIDTH = '500';
-const RECT_HEIGHT = '500';
-
-export const config = {
-    api: {
-      externalResolver: true,
-    },
-}
+const RECT_WIDTH = 500;
+const RECT_HEIGHT = 500;
 
 export async function POST(req: NextRequest) {
     const { matrix, width = RECT_WIDTH, height = RECT_HEIGHT } = await req.json();
