@@ -16,7 +16,7 @@ export default function GenerateImage({ id, content }:Props) {
         workerRef.current.onmessage = (event: MessageEvent<ImageWorkerResponse>) => {
             const { parsed, image } = event.data;
             // if(success) {
-            //     fetch(`/api/image`,{
+            //     fetch(`/api/generate`,{
             //         method: 'POST',
             //         headers: {
             //             'Content-type': 'application/json',

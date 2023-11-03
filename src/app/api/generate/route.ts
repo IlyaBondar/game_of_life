@@ -1,7 +1,7 @@
 import { Matrix } from "@/types/types";
 import { createCanvas } from "canvas";
 import { isArray } from "lodash-es";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const RECT_WIDTH = 500;
 const RECT_HEIGHT = 500;
@@ -52,3 +52,11 @@ export async function POST(req: NextRequest) {
         });
     }
 }
+
+export async function GET() {
+    const message = {
+      text: "This is a public message.",
+    };
+
+    return NextResponse.json(message);
+  }

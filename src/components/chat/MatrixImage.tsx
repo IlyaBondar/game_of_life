@@ -11,7 +11,7 @@ type Props = {
 export default function MatrixImage({ matrix, width = 300, height = 300 }:Props) {
     const [image, setImage] = useState('');
     useEffect(() => {
-        fetch(`/api/image`,{
+        fetch(`/api/generate`,{
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
