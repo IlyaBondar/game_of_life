@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
       const openai = new OpenAIClient(gptUrl, configuration);
 
       const events = await openai.listChatCompletions(
-        "gpt-4",
+        "gpt-35-turbo",
         messages,
         {
           temperature: 0,
