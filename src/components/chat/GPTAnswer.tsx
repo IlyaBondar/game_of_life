@@ -1,61 +1,50 @@
-import { Message } from "@/types/types";
-import { BOT_DISPLAY_NAME } from '@/utils/constants';
-import clx from 'classnames';
-import { Fragment, useState, useEffect } from 'react';
-import styles from './styles.module.css';
-import { generateUserKey } from "@/utils/utils";
+import { useUser } from "@/hooks/useUser";
+import { updateMessage } from "@/redux/messages/messageSlice";
+import { getMessageBefore } from "@/redux/messages/selectors";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import messageStorage from "@/utils/storage";
+import { useEffect, useRef, useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
-const placeholder = 'Loading...';
+type Props = {
+    id: string
+}
 
-export default function GPTAnswer({ id, content, answered }: Message) {
-    const [answer, setAnswer] = useState('');
-    const [isStarted, setIsStarted] = useState(false);
-    const lines = answer.split('\n');
+export default function GPTAnswer({ id }: Props) {
+    const user = useUser();
+    const responseRef = useRef('');
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if(answered && isStarted) return;
+        let eventSource: EventSource;
 
-        const key = generateUserKey('user');
-        const cache = localStorage.getItem(key);
-        const history: Message[] = cache ? JSON.parse(cache) : [];
-        const messages = history.map(({ role, content }) => ({ role, content }))
+        // only one reason for this timeout:
+        // in dev mode effect executed twice and to avoid two request to AI API
+        const timeout = setTimeout(() => {
+            const allMessages = messageStorage.getAllData(user);
+            const messages = getMessageBefore(id, allMessages);
 
-        const eventSource = new EventSource(`/api/gpt?messages=${JSON.stringify(messages)}`);
-        eventSource.addEventListener("message", (e) => {
-            const value = atob(e.data)
-            setAnswer(prevState => `${prevState}${value}`);
-        });
-        eventSource.addEventListener("end", (e) => {
-            console.log("end", e);
-            eventSource.close();
-        });
-        eventSource.addEventListener("open", (e) => {
-            console.log("open", e);
-        });
-        eventSource.addEventListener("error", (e) => {
-            eventSource.close();
-            console.error(e)
-            setIsStarted(false);
-        });
+            eventSource = new EventSource(`/api/gpt?messages=${JSON.stringify(messages)}`);
+            eventSource.addEventListener("message", (e) => {
+                const value = atob(e.data)
+                responseRef.current = `${responseRef.current}${value}`;
+                dispatch(updateMessage({ id, content: responseRef.current }));
+            });
+            eventSource.addEventListener("end", (e) => {
+                dispatch(updateMessage({ id, notAnswered: false })); //TODO: upload image
+                eventSource.close();
+            });
+            eventSource.addEventListener("error", (e:MessageEvent) => {
+                eventSource.close();
+                console.error(e.data || e)
+            });
+        },10);
 
         return () => {
-            setIsStarted(false);
-            eventSource.close();
+            eventSource?.close();
+            clearTimeout(timeout);
         };
-    },[answered, isStarted])
+    },[dispatch, id, user])
 
-    return (
-        <section className={clx(styles.message, styles["message--bot"])}>
-            <div className={styles.message__user}>{BOT_DISPLAY_NAME}:</div>
-            <div className={clx(styles.content, 'break-words')}>
-                {!answer &&<div className="italic">{placeholder}</div>}
-                {answer && lines.map((line, index) => (
-                    <Fragment key={`${id}-${index}-answer`}>
-                        {line}
-                        <br/>
-                    </Fragment>
-                )) }
-            </div>
-        </section>
-    );
+    return null;
 }

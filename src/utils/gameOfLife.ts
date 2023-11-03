@@ -1,4 +1,5 @@
 import { Matrix } from "@/types/types";
+import isEqual from "lodash-es/isEqual";
 
 const countNeighbors = (
     data: Matrix,
@@ -47,13 +48,13 @@ const countNeighbors = (
 
 const convert = (value:boolean) => value ? 1 : 0;
 
-export default function gameOfLife(data: Matrix) {
+export default function gameOfLifeIteration(data: Matrix) {
     const width = data.length;
     const height = data?.[0]?.length ?? 0;
 
     if(!width || !height) return data;
 
-    const newData = data.map(d=>d.slice());
+    const newData = data.map(d=>d.slice()); // potential stackOveflow - create copy for each iteration
 
     let n_neighbors;
     for(let i = 0; i < width; i++) {
@@ -65,4 +66,29 @@ export default function gameOfLife(data: Matrix) {
         }
     }
     return newData;
+}
+
+export function getGameOfLifeResult(data: Matrix, iterationCount: number) {
+    const width = data.length;
+    const height = data?.[0]?.length ?? 0;
+
+    if(!width || !height) return data;
+
+    const newData = data.map(d=>d.slice()); // only one additional array is created
+
+    let n_neighbors;
+    for(let it=0;it<iterationCount;it++) {
+        for(let i = 0; i < width; i++) {
+            for(let j = 0; j < height; j++) {
+                n_neighbors = countNeighbors(data, i, j);
+                newData[i][j] = convert(data[i][j] ?
+                    n_neighbors == 2 || n_neighbors == 3 : // still alive
+                    n_neighbors == 3); // become alive
+            }
+        }
+        if(isEqual(data, newData)) { // return if no changes after iteration
+            return newData;
+        }
+    }
+    return newData; // result after all iterations
 }

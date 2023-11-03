@@ -5,7 +5,7 @@ import useDrawMatrix from '@/hooks/useDrawMatrix';
 import fakeData from '@/utils/data/fakeData.json'
 import { Matrix, WorkerCommands, WorkerData } from '@/types/types';
 import Button from '../shared/Button';
-import './styles.css';
+import './styles.scss';
 
 export default function Matrix() {
     const initialData:Matrix = fakeData.starting_state as Matrix;

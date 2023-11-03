@@ -24,6 +24,7 @@ export type Message = {
     user?: string;
     role: MessageRole;
     content: string;
-    answered?: boolean;
-    image?: Blob;
+    notAnswered?: boolean;
+    questionId?: string;
+    image?: string;
 }

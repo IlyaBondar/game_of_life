@@ -1,9 +1,9 @@
-import GPTChat from "@/components/chat/GPTchat";
+import Chat from "@/components/chat/Chat";
 
 export default function Home() {
   return (
     <main className="flex flex-row justify-between">
-      <GPTChat/>
+        <Chat/>
     </main>
   )
 }

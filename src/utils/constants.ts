@@ -11,7 +11,8 @@ export const systemValue:Message = {
     id: 'system',
     role: MessageRole.System,
     content: prompt,
-    answered: true
+    notAnswered: false
 };
 
+export const DEFAULT_USER = 'Ilya';
 export const BOT_DISPLAY_NAME = 'GPT';

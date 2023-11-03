@@ -1,24 +1,21 @@
-// app/api/route.ts
-import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
-import { v4 as uuid } from 'uuid';
 import { systemValue } from '@/utils/constants';
+import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
 import { NextRequest } from 'next/server';
+import { v4 as uuid } from 'uuid';
 
 // export const runtime = 'nodejs';
 // export const runtime = 'edge' // 'nodejs' is the default
 // This is required to enable streaming
-// export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url || '');
   const messagesParam = url.searchParams.get('messages');
-  console.log('searchParams', messagesParam);
   const messages = messagesParam ? JSON.parse(messagesParam) : [systemValue];
 
   const responseStream = new TransformStream();
 
   const writer = responseStream.writable.getWriter();
-  const encoder = new TextEncoder();
 
   setTimeout(async () => { // to allow stream be opened on front-end
     try {
@@ -43,20 +40,17 @@ export async function GET(req: NextRequest) {
             const delta = choice.delta?.content;
             console.log('stream message: ', delta);
             if (delta !== undefined) {
-              try {
                   writer.write(`data:${btoa(delta || '')}\nid:${uuid()}\n\n`);
-              } catch (error) {
-                  console.error('Could not JSON parse stream message', delta, error);
-              }
             }
           }
         }
         writer.write(`event:end\ndata:end\nid:${uuid()}\n\n`);
         writer.close();
-
     } catch (error) {
-      console.error('An error occurred during OpenAI request', error);
-      writer.write(encoder.encode('\n\nAn error occurred during OpenAI request'));
+      const errorMessage = 'An error occurred during OpenAI request';
+      console.error(errorMessage, error);
+      writer.write(`data:${btoa(errorMessage)}\nid:${uuid()}\n\n`);
+      writer.write(`event:error\ndata:${JSON.stringify(error)}\nid:${uuid()}\n\n`);
       writer.close();
     }
   });
