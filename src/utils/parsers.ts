@@ -1,4 +1,5 @@
 import { MatrixItem } from "@/types/types";
+import { isEmpty } from "lodash-es";
 
 type Result = {
     success: true;
@@ -10,11 +11,13 @@ export const parseInitialState = (text: string): Result => {
     const parts = text
       .trim() // trim whitespaces and line breaks
       .split('```') // code markdown
-      .slice(1); // ignore before block
+      .slice(1) // ignore before block
+      .filter(v=>!isEmpty(v)); // ignore empty
     if(parts.length === 2) {
       try {
         const [matrixString, iterationCountString] = parts;
-        const iterationCount = parseInt(iterationCountString.trim());
+        const match = iterationCountString.trim().match(/\d+/);
+        const iterationCount = parseInt(match ? match[0] : '0');
         const lines = matrixString
           .trim() // trim whitespaces and line breaks
           .split('\n'); // split by line breaks
