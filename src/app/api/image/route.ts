@@ -6,6 +6,8 @@ import { NextRequest } from "next/server";
 const RECT_WIDTH = 500;
 const RECT_HEIGHT = 500;
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
     try {
         //const { matrix, width = RECT_WIDTH, height = RECT_HEIGHT } = await req.json();
