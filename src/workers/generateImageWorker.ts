@@ -4,7 +4,6 @@ import { parseInitialState } from "@/utils/parsers";
 
 addEventListener('message', async (event: MessageEvent<ImageWorkerData>) => {
     const { content } = event.data;
-    console.log('generate image worker');
     const result = parseInitialState(content);
     if(!result.success) {
         postMessage({ parsed: true, image: '', success: false });
@@ -12,7 +11,6 @@ addEventListener('message', async (event: MessageEvent<ImageWorkerData>) => {
     }
 
     const finalState = getGameOfLifeResult(result.matrix, result.iterationCount);
-    console.log('final state', finalState);
     const image = await fetch(`/api/image`,{
         method: 'POST',
         headers: {
@@ -26,7 +24,7 @@ addEventListener('message', async (event: MessageEvent<ImageWorkerData>) => {
     })
       .then((res) => res.text())
       .then(img => img)
-      .catch(e => console.log(e));
+      .catch(e => console.error(e));
 
       postMessage({ parsed: true, image, success: true });
 });
