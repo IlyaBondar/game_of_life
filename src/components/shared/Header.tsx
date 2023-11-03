@@ -1,10 +1,18 @@
-import Link from "next/link";
+'use client';
 
-export default function Footer() {
-    return (<header>
-        <nav className="flex gap-4 m-1 mx-auto">
-            <Link href="/" className='nav-item pointer-events-auto rounded-md border border-indigo-200 px-3 py-2 text-[0.8125rem] font-semibold leading-5 text-white hover:border-indigo-500'>Chat</Link>
-            <Link href="/game" className='nav-item pointer-events-auto rounded-md border border-indigo-200 px-3 py-2 text-[0.8125rem] font-semibold leading-5 text-white hover:border-indigo-500'>Game</Link>
+import { useUser } from "@auth0/nextjs-auth0/client";
+import Image from "next/image";
+import Link from "../shared/Link";
+import { NavBarButtons } from "../login/NavBarButtons";
+
+export default function Header() {
+    return (<header className="flex min-w-full justify-around">
+        <nav className="flex gap-4 m-1">
+            <Link href="/" >Chat</Link>
+            <Link href="/game">Game</Link>
+        </nav>
+        <nav className="">
+            <NavBarButtons/>
         </nav>
     </header>)
 }

@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import './globals.scss'
 import Header from '@/components/shared/Header'
 import Footer from '@/components/shared/Footer'
-import Providers from '@/providers/providers'
+import Providers from '@/providers/providers';
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 export const metadata: Metadata = {
   title: 'Game of Life',
@@ -17,11 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex min-h-full flex-col items-center">
-        <Providers>
-          <Header/>
-          <main className='flex justify-between gap-4'>{children}</main>
-          <Footer/>
-        </Providers>
+        <UserProvider>
+          <Providers>
+            <Header/>
+            <main className='flex justify-between gap-4'>{children}</main>
+            <Footer/>
+          </Providers>
+        </UserProvider>
       </body>
     </html>
   )

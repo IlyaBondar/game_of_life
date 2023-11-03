@@ -14,5 +14,5 @@ export const systemValue:Message = {
     notAnswered: false
 };
 
-export const DEFAULT_USER = 'Ilya';
+export const DEFAULT_USER = 'Anonymous';
 export const BOT_DISPLAY_NAME = 'GPT';
