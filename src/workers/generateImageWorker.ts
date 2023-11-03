@@ -11,20 +11,24 @@ addEventListener('message', async (event: MessageEvent<ImageWorkerData>) => {
     }
 
     const finalState = getGameOfLifeResult(result.matrix, result.iterationCount);
-    const image = await fetch(`/api/image`,{
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            matrix: finalState,
-            width:300,
-            height:300
-        }),
-    })
-      .then((res) => res.text())
-      .then(img => img)
-      .catch(e => console.error(e));
+    try {
+        const response = await fetch(`/api/image?matrix=${JSON.stringify(finalState)}&width=300&height=300`,{
+            method: 'GET',
+            // cache: "no-cache",
+            // headers: {
+            //     'Content-type': 'application/json',
+            // },
+            // body: JSON.stringify({
+            //     matrix: finalState,
+            //     width:300,
+            //     height:300
+            // }),
+        });
+        const { image } = await response.json();
+        postMessage({ parsed: true, image, success: true });
+    } catch (error) {
+        console.error("Error:", error);
+    }
 
-      postMessage({ parsed: true, image, success: true });
+
 });

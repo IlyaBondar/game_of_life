@@ -6,9 +6,12 @@ import { NextRequest } from "next/server";
 const RECT_WIDTH = 500;
 const RECT_HEIGHT = 500;
 
-export async function POST(req: NextRequest) {
-    const { matrix, width = RECT_WIDTH, height = RECT_HEIGHT } = await req.json();
+export async function GET(req: NextRequest) {
     try {
+        //const { matrix, width = RECT_WIDTH, height = RECT_HEIGHT } = await req.json();
+        const matrix = JSON.parse(req.nextUrl.searchParams.get('matrix') || '');
+        const width = parseInt(req.nextUrl.searchParams.get('width') || '');
+        const height = parseInt(req.nextUrl.searchParams.get('height') || '');
         if(!matrix) {
             return new Response('Error: please provide "matrix" parameter', {
                 status: 400,
@@ -20,7 +23,7 @@ export async function POST(req: NextRequest) {
         const canvas = createCanvas(width, height);
         const ctx = canvas.getContext('2d');
         if(!data.length || !isArray(data[0]) || !isArray(data[0])) {
-            return new Response('Error: incorrect "matrix" parameter', {
+            return Response.json({ error: 'Error: incorrect "matrix" parameter' }, {
                 status: 400,
                 statusText: 'Error: incorrect "matrix" parameter'
             });
@@ -39,17 +42,18 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        return new Response(canvas.toDataURL("image/png"), {
+        return Response.json({ image: canvas.toDataURL("image/png") }, {
             status: 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            },
+            // headers: {
+            //     'Access-Control-Allow-Origin': '*',
+            //     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            //     'Access-Control-Allow-Headers': '*',
+            //     'Content-type': 'application/json',
+            // },
         });
     } catch(e) {
         console.error(e);
-        return new Response(`Error: ${e}`, {
+        return Response.json({ error: `Error: ${e}`}, {
             status: 400,
             statusText: 'Error'
         });

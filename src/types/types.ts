@@ -20,6 +20,7 @@ export type ImageWorkerData = {
 export type ImageWorkerResponse = {
     image: string;
     parsed: boolean;
+    success: boolean;
 };
 
 export enum MessageRole {
