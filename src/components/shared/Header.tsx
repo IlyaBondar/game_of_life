@@ -9,8 +9,6 @@ export default function Header() {
             <Link href="/" >Chat</Link>
             <Link href="/game">Game</Link>
         </nav>
-        <nav className="">
-            <NavBarButtons/>
-        </nav>
+        <NavBarButtons/>
     </header>)
 }
