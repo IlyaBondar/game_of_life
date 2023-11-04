@@ -64,7 +64,7 @@ export default function ChatControls() {
     const hasValue = !inputValue.trim().length;
     return (
         <>
-        <textarea id="chat__input"
+            <textarea id="chat__input"
                 placeholder='Enter command for GPT chat (Ctrl-Enter to send)'
                 value={inputValue}
                 onChange={onChange}

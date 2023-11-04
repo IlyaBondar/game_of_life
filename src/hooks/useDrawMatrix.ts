@@ -1,19 +1,13 @@
 import { Matrix } from '@/types/types';
 import { useEffect, useRef } from 'react';
 
-const RECT_WIDTH = 500;
-const RECT_HEIGHT = 500;
-
-export default function useDrawMatrix (data: Matrix, canvasWidth = RECT_WIDTH, canvasHeight = RECT_HEIGHT) {
+export default function useDrawMatrix (data: Matrix) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    useEffect(()=> {
-        if(!canvasRef.current) return;
-        canvasRef.current.width = canvasWidth;
-        canvasRef.current.height = canvasHeight;
-    },[canvasHeight, canvasWidth])
-
     useEffect(()=>{
+        if(!canvasRef.current) return;
+        const canvasWidth = canvasRef.current.width;
+        const canvasHeight = canvasRef.current.height
         if(!canvasRef.current || !canvasRef.current.getContext) return;
         const ctx = canvasRef.current.getContext('2d');
         if(!ctx) return;
@@ -21,18 +15,19 @@ export default function useDrawMatrix (data: Matrix, canvasWidth = RECT_WIDTH, c
         ctx.clearRect(0,0,canvasWidth,canvasHeight);
         //empty initial state
         if(!data.length || !data[0].length) return;
-        const dataWidth = data.length;
-        const dataHeight = data[0].length;
+        const dataHeight = data.length;
+        const dataWidth = data[0].length;
         const cellWidth = canvasWidth / dataWidth;
         const cellHeight = canvasHeight / dataHeight;
-        for(let i = 0; i < dataWidth; i++) {
-            for(let j = 0; j < dataHeight; j++) {
-                if(data[i][j]) {
-                    ctx.fillRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
+        for(let y = 0; y < dataHeight; y++) {
+            for(let x = 0; x < dataWidth; x++) {
+                if(data[y]?.[x]) {
+                    ctx.fillStyle = 'black';
+                    ctx.fillRect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
                 }
             }
         }
-    },[canvasHeight, canvasWidth, data]);
+    },[data]);
 
     return canvasRef;
 }

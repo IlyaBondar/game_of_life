@@ -2,15 +2,16 @@ export type MatrixItem = 0 | 1;
 
 export type Matrix = MatrixItem[][];
 
-export enum WorkerCommands {
-    Start = 'start',
-    Pause = 'pause',
-    Stop = 'stop'
+export enum WorkerStatuses {
+    Started = 'started',
+    Paused = 'paused',
+    Stopped = 'stopped',
+    ForceStopped = 'forceStopped'
 }
 
 export type GameWorkerData = {
     data: Matrix,
-    status: WorkerCommands
+    status: WorkerStatuses
 };
 
 export type ImageWorkerData = {

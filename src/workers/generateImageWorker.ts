@@ -16,7 +16,7 @@ addEventListener('message', async (event: MessageEvent<ImageWorkerData>) => {
         if(ctx) {
             const width = canvas.width;
             const height = canvas.height;
-            ctx.fillStyle = 'black';
+            ctx.fillStyle = 'white';
             ctx.fillRect(0,0, width, height);
             const dataHeight = data.length;
             const dataWidth = data[0].length;
@@ -25,7 +25,7 @@ addEventListener('message', async (event: MessageEvent<ImageWorkerData>) => {
             for(let y = 0; y < dataHeight; y++) {
                 for(let x = 0; x < dataWidth; x++) {
                     if(data[y]?.[x]) {
-                        ctx.fillStyle = 'white';
+                        ctx.fillStyle = 'black';
                         ctx.fillRect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
                     }
                 }

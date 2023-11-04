@@ -1,4 +1,4 @@
-import Matrix from "@/components/game/Matrix";
+import GameOfLife from "@/components/game/GameOfLife";
 
 export default async function Game() {
     return (
@@ -10,7 +10,7 @@ export default async function Game() {
         target="_blank"
         className="text-blue-600 dark:text-blue-500 hover:underline"
       >additional information</a>
-      <Matrix />
+      <GameOfLife />
     </main>
   );
 }
