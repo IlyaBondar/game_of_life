@@ -12,9 +12,8 @@ export const parseInitialState = (text: string): Result => {
       .trim() // trim whitespaces and line breaks
       .split('```') // code markdown
       .slice(1) // ignore before block
-      .filter(v=>!isEmpty(v)); // ignore empty
+      .filter(v=>!isEmpty(v.trim())); // ignore empty
     if(parts.length === 2) {
-      try {
         const [matrixString, iterationCountString] = parts;
         const match = iterationCountString.trim().match(/\d+/);
         const iterationCount = parseInt(match ? match[0] : '0');
@@ -34,7 +33,6 @@ export const parseInitialState = (text: string): Result => {
               matrix
           }
         }
-      } catch(e) { console.error(e) }
     }
     return {
       success:false

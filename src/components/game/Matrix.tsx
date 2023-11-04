@@ -8,7 +8,7 @@ import Button from '../shared/Button';
 import './styles.scss';
 
 export default function Matrix() {
-    const initialData:Matrix = fakeData.starting_state as Matrix;
+    const initialData:Matrix = fakeData.startingState as Matrix;
 
     const [ data, setData ] = useState(initialData);
     const [ started, setStarted ] = useState(WorkerCommands.Stop);

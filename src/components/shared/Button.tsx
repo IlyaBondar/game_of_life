@@ -1,6 +1,8 @@
 import clx from 'classnames';
 
-export default function Button(props:any) {
+type ButtonProps = React.ComponentProps<'button'>;
+
+export default function Button(props:ButtonProps) {
     const { className } = props;
     return (<button
         {...props}

@@ -1,9 +1,7 @@
 'use client';
 
-import { useUser } from "@auth0/nextjs-auth0/client";
-import Image from "next/image";
-import Link from "../shared/Link";
 import { NavBarButtons } from "../login/NavBarButtons";
+import Link from "../shared/Link";
 
 export default function Header() {
     return (<header className="flex min-w-full justify-around">

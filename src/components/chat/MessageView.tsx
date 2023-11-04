@@ -1,13 +1,11 @@
 import { getMessageById } from "@/redux/messages/selectors";
 import { useAppSelector } from "@/redux/store";
-import { MessageRole } from "@/types/types";
 import clx from 'classnames';
 import { Fragment } from "react";
-import styles from './styles.module.scss';
+import ChatImage from "./ChatImage";
 import GPTAnswer from "./GPTAnswer";
-import { parseInitialState } from "@/utils/parsers";
 import GenerateImage from "./GenerateImage";
-import Image from "next/image";
+import styles from './styles.module.scss';
 
 type ContentProps = {
     content: string,
@@ -38,7 +36,7 @@ export default function MessageView({ id }: MessageProps) {
     if(!message)
         return (<div>Message not found</div>);
 
-    const { user, role, content, notAnswered, startParse, image } = message;
+    const { user, role, content, notAnswered, parsing, image } = message;
     const showPlaceholder = notAnswered && !content;
 
     return (
@@ -49,14 +47,8 @@ export default function MessageView({ id }: MessageProps) {
                 <ContentView content={content} id={id} />
             </div>
             {notAnswered && <GPTAnswer id={id} />}
-            {startParse && <GenerateImage id={id} content={content}/>}
-            {image?.startsWith('data') && <Image
-                src={image}
-                alt="image of matrix"
-                width={300}
-                height={300}
-                className='border rounded'
-                />}
+            {parsing && <GenerateImage id={id} content={content}/>}
+            <ChatImage image={image} />
         </section>
     );
 }

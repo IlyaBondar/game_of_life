@@ -1,10 +1,9 @@
 import { useUser } from "@/hooks/useUser";
 import { updateMessage } from "@/redux/messages/messageSlice";
 import { convertToGTP, getMessageBefore } from "@/redux/messages/selectors";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useAppDispatch } from "@/redux/store";
 import messageStorage from "@/utils/storage";
-import { useEffect, useRef, useState } from 'react';
-import { v4 as uuid } from 'uuid';
+import { useEffect, useRef } from 'react';
 
 type Props = {
     id: string
@@ -30,8 +29,8 @@ export default function GPTAnswer({ id }: Props) {
                 responseRef.current = `${responseRef.current}${value}`;
                 dispatch(updateMessage({ id, content: responseRef.current }));
             });
-            eventSource.addEventListener("end", (e) => {
-                dispatch(updateMessage({ id, notAnswered: false, startParse: true }));
+            eventSource.addEventListener("end", () => {
+                dispatch(updateMessage({ id, notAnswered: false, parsing: true }));
                 eventSource.close();
             });
             eventSource.addEventListener("error", (e:MessageEvent) => {

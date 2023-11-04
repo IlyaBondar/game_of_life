@@ -15,14 +15,12 @@ export type GameWorkerData = {
 
 export type ImageWorkerData = {
     content: string;
-    width?: number;
-    height?: number;
+    canvas: OffscreenCanvas;
 };
 
 export type ImageWorkerResponse = {
-    image?: string;
-    parsed: boolean;
     success: boolean;
+    error?: Error;
 };
 
 export enum MessageRole {
@@ -37,7 +35,7 @@ export type Message = {
     role: MessageRole;
     content: string;
     notAnswered?: boolean;
-    startParse?: boolean;
+    parsing?: boolean;
     questionId?: string;
     image?: string;
 }

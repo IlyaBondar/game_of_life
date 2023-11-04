@@ -1,14 +1,14 @@
 'use client';
 
-import { getMessageIds, getMessages } from "@/redux/messages/selectors";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { Fragment, useEffect, useRef, useState } from "react";
-import styles from './styles.module.scss';
-import MessageView from "./MessageView";
-import MessageStorage from "@/utils/storage";
 import { useUser } from "@/hooks/useUser";
 import { setMessages } from "@/redux/messages/messageSlice";
-import { BOT_DISPLAY_NAME, DEFAULT_USER, systemValue } from "@/utils/constants";
+import { getMessageIds, getMessages } from "@/redux/messages/selectors";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { DEFAULT_USER, systemValue } from "@/utils/constants";
+import MessageStorage from "@/utils/storage";
+import { Fragment, useEffect, useRef, useState } from "react";
+import MessageView from "./MessageView";
+import styles from './styles.module.scss';
 
 export default function Messages() {
     const user = useUser();

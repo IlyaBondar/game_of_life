@@ -23,8 +23,8 @@ export default function useDrawMatrix (data: Matrix, canvasWidth = RECT_WIDTH, c
         if(!data.length || !data[0].length) return;
         const dataWidth = data.length;
         const dataHeight = data[0].length;
-        var cellWidth = canvasWidth / dataWidth;
-        var cellHeight = canvasHeight / dataHeight;
+        const cellWidth = canvasWidth / dataWidth;
+        const cellHeight = canvasHeight / dataHeight;
         for(let i = 0; i < dataWidth; i++) {
             for(let j = 0; j < dataHeight; j++) {
                 if(data[i][j]) {

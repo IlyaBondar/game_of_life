@@ -1,6 +1,6 @@
-import {configureStore, createSlice, ThunkAction} from '@reduxjs/toolkit';
-import {Action} from 'redux';
-import { useSelector, useDispatch, TypedUseSelectorHook } from 'react-redux';
+import { configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { Action } from 'redux';
 import messageSlice from './messages/messageSlice';
 
 export const store = configureStore({

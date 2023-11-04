@@ -23,7 +23,7 @@ export const messageSlice = createSlice({
             state[index] = { ...state[index], ...rest }
         },
         setMessages: (_: State, action: PayloadAction<Message[]>) => action.payload,
-        resetMessages: (_: State, action:PayloadAction) => initialState
+        resetMessages: () => initialState
     },
   });
 

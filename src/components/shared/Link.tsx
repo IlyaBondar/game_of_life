@@ -1,7 +1,9 @@
 import clx from 'classnames';
 import { default as NextLink } from 'next/link';
 
-export default function Link(props:any) {
+type NextLinkProps = React.ComponentProps<typeof NextLink>;
+
+export default function Link(props:NextLinkProps) {
     const { className } = props;
     return (<NextLink
         {...props}
@@ -15,7 +17,9 @@ export default function Link(props:any) {
     )
 }
 
-export function LinkA(props:any) {
+type AnchorProps = React.ComponentProps<'a'>;
+
+export function LinkA(props:AnchorProps) {
     const { className } = props;
     return (<a
         {...props}

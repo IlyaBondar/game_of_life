@@ -16,3 +16,8 @@ export const systemValue:Message = {
 
 export const DEFAULT_USER = 'Anonymous';
 export const BOT_DISPLAY_NAME = 'GPT';
+
+export const IMAGE_SIZE = {
+    width: 300,
+    height: 300
+}

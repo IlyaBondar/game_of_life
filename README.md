@@ -34,7 +34,7 @@ Don't use natural language.
 - [x] Integration with GPT
 - [x] Game of Life logic
 - [x] WebWorker with Game of Life logic
-- [ ] Generation of picture
+- [x] Generation of picture
 - [x] Social login
 - [x] Deployment
 - [x] How to access to EPAM AI from vercel.app without VPN ?!!! - Public AI API and token
