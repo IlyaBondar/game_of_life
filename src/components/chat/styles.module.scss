@@ -1,15 +1,9 @@
-.message {
-    border: 1px solid silver;
-}
 .message--user {
-    margin-left: 20px;
+    @apply ml-6
 }
 .message--assistant {
-    margin-right: 20px;
+    @apply mr-6
 }
 .message--system {
-    font-style: italic;
-}
-.input {
-    min-height: 100px;
+    @apply italic
 }

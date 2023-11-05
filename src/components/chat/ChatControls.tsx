@@ -70,9 +70,8 @@ export default function ChatControls() {
                 onChange={onChange}
                 onKeyDown={onKeyDown}
                 className={clx(
-                    styles.input,
                     "h-28 focus:outline-none focus:placeholder-gray-400 text-gray-600",
-                    "placeholder-gray-500 bg-gray-200 rounded-md p-3 w-full"
+                    "placeholder-gray-500 bg-gray-200 rounded-md p-3 w-full h-28 border"
                     )}
                 rows={10}
                 autoFocus
@@ -82,7 +81,7 @@ export default function ChatControls() {
                 <Button id="chat__send" onClick={onClick} disabled={hasValue}>Send</Button>
                 <Button id="chat__reset" onClick={onClear}>Clear History</Button>
             </div>
-        </>
+        </div>
     )
 }
 

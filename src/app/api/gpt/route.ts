@@ -14,7 +14,6 @@ export async function GET(req: NextRequest) {
   const messages = messagesParam ? JSON.parse(messagesParam) : [systemValue];
 
   const responseStream = new TransformStream();
-
   const writer = responseStream.writable.getWriter();
 
   setTimeout(async () => { // to allow stream be opened on front-end
@@ -57,8 +56,9 @@ export async function GET(req: NextRequest) {
   return new Response(responseStream.readable, {
     headers: {
       'Content-Type': 'text/event-stream',
-      Connection: 'keep-alive',
+      'Connection': 'keep-alive',
       'Cache-Control': 'no-cache, no-transform',
+      'Access-Control-Allow-Origin': '*'
     },
   });
 }

@@ -1,13 +1,14 @@
 'use client'
 
 import { useRef, useEffect, useCallback, useState, MouseEvent, ChangeEvent } from 'react';
-import useDrawMatrix from '@/hooks/useDrawMatrix';
+// import useDrawMatrix from '@/hooks/useDrawMatrix';
 import { GameWorkerData, Matrix, WorkerStatuses } from '@/types/types';
 import Button from '../shared/Button';
 import './styles.scss';
 import { getGameOfLifeResult } from '@/utils/gameOfLife';
 import { parseInitialState } from '@/utils/parsers';
 import { formatMessage } from '@/utils/constants';
+import MatrixCanvas from './MatrixCanvas';
 
 export default function Matrix() {
     const workerRef = useRef<Worker>();
@@ -73,13 +74,11 @@ export default function Matrix() {
         });
     }, [data])
 
-    const canvasRef = useDrawMatrix(data);
-    const canvasRef2 = useDrawMatrix(getGameOfLifeResult(initialData, iterationCount));
     return (
         <form className='flex flex-col'>
             <label htmlFor='chat__input'>Enter your matrix:</label>
             <textarea id="chat__input"
-                className='font-mono rounded'
+                className='font-mono rounded-md text-gray-900 mb-2 max-w-sm h-72 resize-y border'
                 title={`Enter your matrix.\r\nFormat: ${formatMessage}`}
                 placeholder={`Enter your matrix.\r\nFormat: ${formatMessage}`}
                 value={inputValue}
@@ -91,10 +90,7 @@ export default function Matrix() {
                 { parsedResult.success ? "Parsed. You can play:" : "Not parsed: incorrect format!" }
             </div>
             { parsedResult.success && <>
-                <canvas id="game_area"
-                    ref={canvasRef}
-                    className='rounded'
-                />
+                <MatrixCanvas id="game_area" data={data} />
                 <div className='flex flex-row justify-between'>
                     Iterations: {iterationCountRef.current}
                     <div className='flex flex-row-reverse gap-3 my-3'>
@@ -106,11 +102,7 @@ export default function Matrix() {
                 </div>
 
                 Should be after {iterationCount} iteraions:
-                <canvas
-                    id="result_area"
-                    ref={canvasRef2}
-                    className='mb-4 rounded'
-                />
+                <MatrixCanvas id="game_area" data={getGameOfLifeResult(initialData, iterationCount)} className='mb-4' />
             </>}
         </form>
     )
