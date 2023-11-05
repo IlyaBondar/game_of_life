@@ -22,6 +22,7 @@ export const getGPTAnswer = (id: string) => async (dispatch: AppDispatch, getSta
         eventSource.addEventListener("error", (e:MessageEvent) => {
             eventSource.close();
             console.error(e.data || e);
+            dispatch(updateMessage({ id, content: 'Error happens during your request!' }));
         });
     } else {
         const errorMessage = `Error: EventSource isn't supported by your browser`

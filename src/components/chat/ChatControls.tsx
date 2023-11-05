@@ -8,6 +8,7 @@ import { createPairMessages } from "@/utils/utils";
 import clx from 'classnames';
 import { ChangeEvent, KeyboardEvent, useCallback, useRef, useState } from "react";
 import Button from "../shared/Button";
+import styles from './styles.module.scss'
 
 export default function ChatControls() {
     const dispatch = useAppDispatch()
@@ -50,10 +51,11 @@ export default function ChatControls() {
                 onChange={onChange}
                 onKeyDown={onKeyDown}
                 className={clx(
+                    styles.chat__input,
                     "h-28 focus:outline-none focus:placeholder-gray-400 text-gray-800",
-                    "placeholder-gray-500 bg-gray-100 rounded-md p-3 w-full h-28 border"
+                    "placeholder-gray-500 bg-gray-100 rounded-md p-3 w-full border"
                     )}
-                rows={10}
+                rows={3}
                 autoFocus
                 ref={inputRef}
             />
