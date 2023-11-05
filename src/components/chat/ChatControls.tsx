@@ -81,7 +81,7 @@ export default function ChatControls() {
                 <Button id="chat__send" onClick={onClick} disabled={hasValue}>Send</Button>
                 <Button id="chat__reset" onClick={onClear}>Clear History</Button>
             </div>
-        </div>
+        </>
     )
 }
 
