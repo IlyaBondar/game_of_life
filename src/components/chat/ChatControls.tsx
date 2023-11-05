@@ -9,7 +9,6 @@ import clx from 'classnames';
 import { ChangeEvent, KeyboardEvent, useCallback, useRef, useState } from "react";
 import { v4 as uuid } from 'uuid';
 import Button from "../shared/Button";
-import styles from './styles.module.scss';
 
 const createMessages = (content: string, user: string):Message[] => {
     const questionId = uuid();
