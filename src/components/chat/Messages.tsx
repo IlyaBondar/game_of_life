@@ -8,7 +8,6 @@ import { DEFAULT_USER, systemValue } from "@/utils/constants";
 import MessageStorage from "@/utils/storage";
 import { Fragment, useEffect, useRef, useState } from "react";
 import MessageView from "./MessageView";
-import styles from './styles.module.scss';
 
 export default function Messages() {
     const user = useUser();
@@ -31,7 +30,7 @@ export default function Messages() {
         }
     },[messageIds, initialized, user, messages]);
     return (
-        <div id='chat__output' className={styles.output}>
+        <div id='chat__output' className="grow overflow-y-auto border border-gray-100 p-2 rounded-lg">
             {messageIds.map(id=>(
                 <Fragment key={id}>
                     <MessageView id={id}/>

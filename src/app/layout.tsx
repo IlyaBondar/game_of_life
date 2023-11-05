@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.scss'
 import Header from '@/components/shared/Header'
-import Footer from '@/components/shared/Footer'
 import Providers from '@/providers/providers';
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 
@@ -17,12 +16,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex min-h-full flex-col items-center">
+      <body className="flex-1 p-2 sm:p-6 flex flex-col h-screen overflow-hidden">
         <UserProvider>
           <Providers>
             <Header/>
-            <main className='flex justify-between gap-4'>{children}</main>
-            <Footer/>
+            <main className="flex flex-col items-center h-full">
+              {children}
+            </main>
           </Providers>
         </UserProvider>
       </body>

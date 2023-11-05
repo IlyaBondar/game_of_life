@@ -79,6 +79,7 @@ export default function Matrix() {
         <form className='flex flex-col'>
             <label htmlFor='chat__input'>Enter your matrix:</label>
             <textarea id="chat__input"
+                className='font-mono rounded'
                 title={`Enter your matrix.\r\nFormat: ${formatMessage}`}
                 placeholder={`Enter your matrix.\r\nFormat: ${formatMessage}`}
                 value={inputValue}
@@ -90,7 +91,12 @@ export default function Matrix() {
                 { parsedResult.success ? "Parsed. You can play:" : "Not parsed: incorrect format!" }
             </div>
             { parsedResult.success && <>
-                <canvas id="game_area" width="500" height="500" ref={canvasRef}/>
+                <canvas id="game_area"
+                    width="500"
+                    height="500"
+                    ref={canvasRef}
+                    className='rounded'
+                />
                 <div className='flex flex-row justify-between'>
                     Iterations: {iterationCountRef.current}
                     <div className='flex flex-row-reverse gap-3 my-3'>
@@ -102,7 +108,13 @@ export default function Matrix() {
                 </div>
 
                 Should be after {iterationCount} iteraions:
-                <canvas id="result_area" width="500" height="500" ref={canvasRef2} className='mb-4'/>
+                <canvas
+                    id="result_area"
+                    width="500"
+                    height="500"
+                    ref={canvasRef2}
+                    className='mb-4 rounded'
+                />
             </>}
         </form>
     )

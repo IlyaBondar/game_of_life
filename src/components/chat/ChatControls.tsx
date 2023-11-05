@@ -69,7 +69,11 @@ export default function ChatControls() {
                 value={inputValue}
                 onChange={onChange}
                 onKeyDown={onKeyDown}
-                className={clx(styles.input)}
+                className={clx(
+                    styles.input,
+                    "h-28 focus:outline-none focus:placeholder-gray-400 text-gray-600",
+                    "placeholder-gray-500 bg-gray-200 rounded-md p-3 w-full"
+                    )}
                 rows={10}
                 autoFocus
                 ref={inputRef}

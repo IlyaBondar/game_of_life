@@ -40,8 +40,8 @@ export default function MessageView({ id }: MessageProps) {
     const showPlaceholder = notAnswered && !content;
 
     return (
-        <section className={clx(styles.message, styles[`message--${role}`])}>
-            <div className={styles.message__user}>{user ?? role}:</div>
+        <section className={clx(styles.message, styles[`message--${role}`], "px-4 py-2 rounded-lg mb-2")}>
+            <div className="font-bold">{user ?? role}:</div>
             <div className={clx(styles.content, 'break-words')}>
                 {showPlaceholder &&<div className="italic">{placeholder}</div>}
                 <ContentView content={content} id={id} />

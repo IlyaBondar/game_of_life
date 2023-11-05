@@ -10,13 +10,13 @@ export const NavBarButtons = () => {
     const { user } = useUser();
 
     return (
-      <div className="nav-bar__buttons flex gap-4 m-1 items-center">
+      <div className="nav-bar__buttons flex gap-4 my-1 ml-2 items-center">
         <h1>{user?.name || DEFAULT_USER}</h1>
         <Image
           title={user?.nickname || DEFAULT_USER}
           src={user?.picture || defaultPicture}
           alt="user image"
-          className="profile__avatar"
+          className="w-10 h-10 rounded-full"
           width={38}
           height={38}
         />
