@@ -92,8 +92,6 @@ export default function Matrix() {
             </div>
             { parsedResult.success && <>
                 <canvas id="game_area"
-                    width="500"
-                    height="500"
                     ref={canvasRef}
                     className='rounded'
                 />
@@ -110,8 +108,6 @@ export default function Matrix() {
                 Should be after {iterationCount} iteraions:
                 <canvas
                     id="result_area"
-                    width="500"
-                    height="500"
                     ref={canvasRef2}
                     className='mb-4 rounded'
                 />

@@ -2,7 +2,7 @@ import GameOfLife from "@/components/game/GameOfLife";
 
 export default async function Game() {
     return (
-    <main className="flex flex-col items-center">
+    <main className="flex flex-col items-center p-2">
       <h1 className="text-lg font-bold my-1">
         Example of &quot;Game of Life&quot;
       </h1>
