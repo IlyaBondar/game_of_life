@@ -35,7 +35,6 @@ export type Message = {
     user?: string;
     role: MessageRole;
     content: string;
-    notAnswered?: boolean;
     parsing?: boolean;
     questionId?: string;
     image?: string;

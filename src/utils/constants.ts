@@ -12,8 +12,7 @@ Don't use natural language.`;
 export const systemValue:Message = {
     id: 'system',
     role: MessageRole.System,
-    content: prompt,
-    notAnswered: false
+    content: prompt
 };
 
 export const DEFAULT_USER = 'Anonymous';

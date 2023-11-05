@@ -2,33 +2,12 @@
 
 import { useUser } from "@/hooks/useUser";
 import { addMessages, resetMessages } from "@/redux/messages/messageSlice";
+import { getGPTAnswer } from "@/redux/messages/thunk";
 import { useAppDispatch } from "@/redux/store";
-import { Message, MessageRole } from "@/types/types";
-import { BOT_DISPLAY_NAME } from "@/utils/constants";
+import { createPairMessages } from "@/utils/utils";
 import clx from 'classnames';
 import { ChangeEvent, KeyboardEvent, useCallback, useRef, useState } from "react";
-import { v4 as uuid } from 'uuid';
 import Button from "../shared/Button";
-
-const createMessages = (content: string, user: string):Message[] => {
-    const questionId = uuid();
-    return [
-        {
-            id: questionId,
-            user,
-            role: MessageRole.User,
-            content
-        },
-        {
-            id: uuid(),
-            user: BOT_DISPLAY_NAME,
-            role: MessageRole.Assistant,
-            content: '',
-            notAnswered: true,
-            questionId
-        },
-    ]
-}
 
 export default function ChatControls() {
     const dispatch = useAppDispatch()
@@ -38,7 +17,9 @@ export default function ChatControls() {
     const setValue = useCallback(() => {
         const content = inputValue.trim();
         if(!content) return;
-        dispatch(addMessages(createMessages(content, user)));
+        const messages = createPairMessages(content, user);
+        dispatch(addMessages(messages));
+        dispatch(getGPTAnswer(messages[1].id));
         setInputValue('');
         inputRef.current?.focus();
     }, [dispatch, inputValue, user])
@@ -69,14 +50,14 @@ export default function ChatControls() {
                 onChange={onChange}
                 onKeyDown={onKeyDown}
                 className={clx(
-                    "h-28 focus:outline-none focus:placeholder-gray-400 text-gray-600",
-                    "placeholder-gray-500 bg-gray-200 rounded-md p-3 w-full h-28 border"
+                    "h-28 focus:outline-none focus:placeholder-gray-400 text-gray-800",
+                    "placeholder-gray-500 bg-gray-100 rounded-md p-3 w-full h-28 border"
                     )}
                 rows={10}
                 autoFocus
                 ref={inputRef}
             />
-            <div className='flex my-3 gap-2'>
+            <div className='flex my-3 gap-2 justify-between'>
                 <Button id="chat__send" onClick={onClick} disabled={hasValue}>Send</Button>
                 <Button id="chat__reset" onClick={onClear}>Clear History</Button>
             </div>

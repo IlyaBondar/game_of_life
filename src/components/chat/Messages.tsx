@@ -24,9 +24,7 @@ export default function Messages() {
     useEffect(()=> {
         outputBottomRef.current?.scrollIntoView();
         if(initialized) {
-            setTimeout(()=> {
-                MessageStorage.setAllData(user, messages);
-            })
+            MessageStorage.setAllData(user, messages);
         }
     },[messageIds, initialized, user, messages]);
     return (
