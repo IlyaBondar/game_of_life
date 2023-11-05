@@ -16,11 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex-1 p-2 sm:p-6 flex flex-col h-screen overflow-hidden">
+      <body className="flex-1 p-2 sm:p-6 flex flex-col h-screen max-h-screen">
         <UserProvider>
           <Providers>
             <Header/>
-            <main className="flex flex-col items-center h-full">
+            <main className="wrapper flex flex-col items-center h-full overflow-y-auto">
               {children}
             </main>
           </Providers>
