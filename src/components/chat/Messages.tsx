@@ -4,7 +4,7 @@ import { useUser } from "@/hooks/useUser";
 import { setMessages } from "@/redux/messages/messageSlice";
 import { getMessageIds, getMessages } from "@/redux/messages/selectors";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { DEFAULT_USER, systemValue } from "@/utils/constants";
+import { systemValue } from "@/utils/constants";
 import MessageStorage from "@/utils/storage";
 import { Fragment, useEffect, useRef, useState } from "react";
 import MessageView from "./MessageView";
@@ -17,7 +17,7 @@ export default function Messages() {
     const outputBottomRef = useRef<HTMLSpanElement>(null);
     const dispatch = useAppDispatch()
     useEffect(()=> {
-        const cache = user !== DEFAULT_USER ? MessageStorage.getAllData(user) : [];
+        const cache = MessageStorage.getAllData(user);
         dispatch(setMessages(cache.length ? cache : [systemValue]));
         setInitialized(true);
     },[dispatch, user])
