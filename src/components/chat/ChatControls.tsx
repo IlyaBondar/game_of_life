@@ -59,7 +59,7 @@ export default function ChatControls() {
                 autoFocus
                 ref={inputRef}
             />
-            <div className='flex my-3 gap-2 justify-between w-full'>
+            <div className='flex flex-row-reverse my-3 gap-2 justify-between w-full'>
                 <Button id="chat__send" onClick={onClick} disabled={hasValue}>Send</Button>
                 <Button id="chat__reset" onClick={onClear}>Clear History</Button>
             </div>
